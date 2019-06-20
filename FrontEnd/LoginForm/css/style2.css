@@ -1,0 +1,13 @@
+table,td,thead{
+	border: 1px solid #333;
+}
+thead{
+    background: rgb(53, 53, 53);
+    color: white;
+}
+th{
+    border-right: 1px solid #333;
+}
+th:last-child{
+    border: none;
+}
