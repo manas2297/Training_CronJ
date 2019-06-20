@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>form-assignment</title>
+  
+  
+  
+      <link rel="stylesheet" href="./style.css">
+
+  
+</head>
+
+<body>
+
+  <div class="container">
+	<div class="logo">
+		<img src="https://static.cronj.com/img/color-logo.png" alt="cronj">
+	</div>
+	<form class="form" name="myForm">
+		<div class="inputEmail">
+			<label for="email">Email:</label><br>
+			<input type="email" name="email" id="emailid" required>
+		</div>
+		<div class="inputPass">
+			<label for="pass">Password:</label><br>
+			<input type="password" name="password" id="pass" required>
+		</div>
+		<p id="alert" class="alertM"></p>
+		
+		<input type="button" value="Login" class="btn" onClick="validateForm()">
+	</form>
+</div>
+  
+  
+
+    <script  src="./script.js"></script>
+
+
+
+
+</body>
+
+</html>
