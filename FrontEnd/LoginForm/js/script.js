@@ -6,6 +6,7 @@ function validateForm(){
 	if (userEmail === email && password===pass ){
 		document.getElementById("alert").style.color = "green";
 		document.getElementById("alert").innerHTML="Login Successful!!!!!";
+		window.location = "salesTracker.html"
 	}else{
 		document.getElementById("alert").style.color="red";
 		document.getElementById("alert").innerHTML="Login Unsuccessful!";
