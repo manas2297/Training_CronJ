@@ -3,15 +3,20 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+const passport = require('passport');
 var index = require('./routes/index');
 let users = require('./routes/users');
+const config = require('./config/database');
 var expressHbs = require('express-handlebars');
 var mongoose = require ('mongoose');
-let db = mongoose.connection;
-const expressValidator = require('express-validator');
+const Validator = require('express-validator');
 const flash = require('connect-flash'); 
 const session = require('express-session');
+
+
+mongoose.connect(config.database,{useNewUrlParser : true});
+let db  = mongoose.connection;
+
 
 
 db.once('open',function(){
@@ -41,19 +46,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret : 'keyboard cat',
   resave:false,
-  saveUninitialized : true,
-  cookie: {secure : true}
+  saveUninitialized : false
 
 }));
+app.use(flash());
+require('./config/passport')(passport);
+app.use(passport.initialize());
+app.use(passport.session());
 
-// app.use(require('connect-flash')());
-// app.use(function(req,res,next){
-//   res.locals.messages = required('express-messages')(req,res);
-//   next();
-// })
-
-
-
+app.get('*',function(req,res,next){
+  res.locals.user = req.isAuthenticated() || null;
+  next();
+})
 //home route
 
 app.use('/', index);

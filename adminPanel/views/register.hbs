@@ -1,4 +1,12 @@
 <div class="container">
+    <h1>Sign Up</h1>
+    {{#if hasErrors}}
+        <div class="alert alert-danger">
+            {{# each messages}}
+                <p>{{this}}</p>
+            {{/each}}
+        </div>
+    {{/if}}
     <form action="/users/register" method="post">
         <div class="row">
             <div class="form-group col-sm-6 col-sm-offset-3">
@@ -29,6 +37,7 @@
             <div class="form-group col-sm-6 col-sm-offset-3">
             <label for="password">Confirm Password:</label>
             <input type="password" name="password2" class="form-control" required><br>
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}">
             <input type="submit" value="SignUp" class="btn btn-primary">
         </div>
         </div>
@@ -36,4 +45,5 @@
         
         
     </form>
+    {{!-- {{ csrfToken }} --}}
 </div>

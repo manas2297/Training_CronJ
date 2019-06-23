@@ -17,8 +17,18 @@
         <li><a href="/">Home</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/users/register">Register</a></li>
-        <li><a href="/users/login">Login</a></li>
+        {{#if user}}
+          <li>
+            <a href="/users/logout">Logout</a>
+          </li>
+        {{else}}
+          <li>
+            <a href="/users/register">Register</a>
+          </li>
+          <li>
+            <a href="/users/login">Login</a>
+          </li>
+        {{/if}}
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
