@@ -161,7 +161,7 @@ router.post('/update/:id',function(req,res){
     employe.remarks = req.body.remarks;
 
     let query = { _id:req.params.id };
-    Employee.update(query,employe,function(err){
+    Employee.updateOne(query,employe,function(err){
         if(err){
             console.log(err);
         }else{
