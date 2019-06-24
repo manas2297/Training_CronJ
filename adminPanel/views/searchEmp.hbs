@@ -1,6 +1,19 @@
 <div class="container">
     <h1 class="text-center">{{title}}</h1>
-    <table class="table table-striped">
+    <form action="/users/searchE" method="GET">
+        <div class="form-group">
+            <label for="search">Enter Name: </label>
+            <input type="search"class="form-control" name="search">
+        </div>
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+        <input type="submit" class="btn btn-primary" value="Search">
+    </form>
+    
+</div>
+<br>
+<div class="jumbotron">
+    <div class="container">
+        <table class="table table-striped">
         <thead>
             <tr>
                 <th>Name</th>
@@ -12,11 +25,11 @@
             </tr>
         </thead>
         <tbody>
-            {{#each items}}
+            {{#each employe}}
                 <tr>
                     <td>{{this.name}}</td>
                     <td> {{this.age}} </td>
-                    <td>   {{this.salary}} </td>
+                    <td> {{this.salary}} </td>
                     <td> {{this.email}}</td>
                     <td> {{this.remarks}} </td>
                     <td><a href="/users/update/{{this._id}}" class="btn btn-warning">Edit</a></td>
@@ -25,4 +38,5 @@
             {{/each}}
         </tbody>
     </table>
+    </div>
 </div>

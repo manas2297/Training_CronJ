@@ -114,7 +114,7 @@ router.get('/display', function(req,res,next){
         if(err){
             console.log(err);
         }else{
-            res.render('displayEmp',{items: employes});
+            res.render('displayEmp',{items: employes,title:'Employe List'});
         }
     });
     // let cursor = Employee.findOne({});
@@ -162,5 +162,21 @@ router.get('/delete/:id',function(req,res){
             
         }
     });
-})
+});
+
+router.get('/search',function(req,res,next){
+    res.render('searchEmp',{title:'Search Employee'});
+});
+router.get('/searchE',function(req,res,next){
+    console.log(req.query.search);
+    let query = {name : req.query.search};
+    Employee.find(query,function(err,emps){
+        if(err){
+            console.log(err);
+        }else{
+            res.render('searchEmp',{employe:emps,title:'Search Employee',csrfToken: req.csrfToken()})
+            // console.log(emps);
+        }
+    });
+});
 module.exports = router;
