@@ -6,6 +6,7 @@ var logger = require('morgan');
 const passport = require('passport');
 var index = require('./routes/index');
 let users = require('./routes/users');
+let admin  = require('./routes/admin');
 const config = require('./config/database');
 var expressHbs = require('express-handlebars');
 var mongoose = require ('mongoose');
@@ -63,6 +64,8 @@ app.get('*',function(req,res,next){
 app.use('/', index);
 
 app.use('/users',users);
+
+
 // app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler

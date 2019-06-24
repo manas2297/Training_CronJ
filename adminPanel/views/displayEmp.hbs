@@ -1,0 +1,27 @@
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Salary</th>
+                <th>Email</th>
+                <th>Remarks</th>
+                <th colspan="2">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each items}}
+                <tr>
+                    <td>{{this.name}}</td>
+                    <td> {{this.age}} </td>
+                    <td>   {{this.salary}} </td>
+                    <td> {{this.email}}</td>
+                    <td> {{this.remarks}} </td>
+                    <td><a href="/users/update/{{this._id}}" class="btn btn-warning">Edit</a></td>
+                    <td><a href="/users/delete/{{this._id}}" class="btn btn-danger">Delete</a></td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
