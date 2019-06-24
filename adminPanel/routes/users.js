@@ -88,7 +88,7 @@ router.get('/dashboard',(req,res,next) => {
 router.get('/addEmp',function(req,res,next){
     if(req.isAuthenticated()){
         let messages = req.flash('error');
-        res.render('addEmp',{csrfToken: req.csrfToken(), messages: messages, hasErrors : messages.length > 0});
+        res.render('addEmp',{title:'Add Employee',csrfToken: req.csrfToken(), messages: messages, hasErrors : messages.length > 0});
     }else
         res.redirect('/users/login');
    
@@ -190,8 +190,17 @@ router.get('/search',function(req,res,next){
     }
 });
 router.get('/searchE',function(req,res,next){
-    console.log(req.query.search);
-    let query = {name : req.query.search};
+    // console.log(req.query.search);
+    if(req.isAuthenticated()){
+        let query;
+    if(!req.query.email){
+        query = {name:req.query.search};
+    }else if(!req.query.search){
+        query = {email:req.query.email};
+    }else{
+        query = {name:req.query.search, email:req.query.email};
+    }
+    console.log(query);
     Employee.find(query,function(err,emps){
         if(err){
             console.log(err);
@@ -200,5 +209,9 @@ router.get('/searchE',function(req,res,next){
             // console.log(emps);
         }
     });
+    }else{
+        res.redirect('/users/login');
+    }
+    
 });
 module.exports = router;
