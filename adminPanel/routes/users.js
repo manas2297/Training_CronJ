@@ -58,7 +58,7 @@ router.post('/register',function(req,res){
     // console.log(name);
 });
 //login
-router.get('/login', function(req,res){
+router.get('/login',(req,res) => {
     let messages = req.flash('error');
     // res.render('login');
     res.render('login',{csrfToken: req.csrfToken(), messages: messages, hasErrors : messages.length > 0});
@@ -66,7 +66,7 @@ router.get('/login', function(req,res){
 
 //login process
 
-router.post('/login', function(req,res,next){
+router.post('/login',(req,res,next) => {
     passport.authenticate('local',{
         successRedirect:'/',
         failureRedirect:'/users/login',
@@ -79,7 +79,7 @@ router.get('/logout',function(req,res){
     res.redirect('/users/login');
 });
 
-router.get('/dashboard',function(req,res,next){
+router.get('/dashboard',(req,res,next) => {
     if(req.isAuthenticated())
         res.render('dashboard');    
     else
