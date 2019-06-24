@@ -80,14 +80,22 @@ router.get('/logout',function(req,res){
 });
 
 router.get('/dashboard',function(req,res,next){
-    res.render('dashboard');    
+    if(req.isAuthenticated())
+        res.render('dashboard');    
+    else
+        res.redirect('/users/login');
 });
 router.get('/addEmp',function(req,res,next){
-    let messages = req.flash('error');
-    res.render('addEmp',{csrfToken: req.csrfToken(), messages: messages, hasErrors : messages.length > 0});
+    if(req.isAuthenticated()){
+        let messages = req.flash('error');
+        res.render('addEmp',{csrfToken: req.csrfToken(), messages: messages, hasErrors : messages.length > 0});
+    }else
+        res.redirect('/users/login');
+   
 });
 //Insert Emp
 router.post('/insert',function(req,res){
+
     let newEmp = new Employee({
         name: req.body.name,
         age:req.body.age,
@@ -110,13 +118,18 @@ router.post('/insert',function(req,res){
 //Display Emp
 router.get('/display', function(req,res,next){
     // let resulArr =[];
-    Employee.find({},function(err, employes){
-        if(err){
-            console.log(err);
-        }else{
-            res.render('displayEmp',{items: employes,title:'Employe List'});
-        }
-    });
+    if(req.isAuthenticated()){
+        Employee.find({},function(err, employes){
+            if(err){
+                console.log(err);
+            }else{
+                res.render('displayEmp',{items: employes,title:'Employe List'});
+            }
+        });
+    }else{
+        res.redirect('/users/login');
+    }
+    
     // let cursor = Employee.findOne({});
     // console.log(cursor);
     // cursor.forEach(function(doc,err){
@@ -128,10 +141,15 @@ router.get('/display', function(req,res,next){
 });
 router.get('/update/:id',function(req,res,next){
     // console.log(req.params.id);
-    let messages = req.flash('error');
-    Employee.findById(req.params.id,function(err,employes){
-        res.render('editEmp',{csrfToken: req.csrfToken(), messages: messages, hasErrors : messages.length > 0,title:'Edit Employes',employe : employes});
-    });
+    if(req.isAuthenticated()){
+        let messages = req.flash('error');
+        Employee.findById(req.params.id,function(err,employes){
+            res.render('editEmp',{csrfToken: req.csrfToken(), messages: messages, hasErrors : messages.length > 0,title:'Edit Employes',employe : employes});
+        });
+    }else{
+        res.redirect('/users/login');
+    }
+    
 });
 
 router.post('/update/:id',function(req,res){
@@ -165,7 +183,11 @@ router.get('/delete/:id',function(req,res){
 });
 
 router.get('/search',function(req,res,next){
-    res.render('searchEmp',{title:'Search Employee'});
+    if(req.isAuthenticated())
+        res.render('searchEmp',{title:'Search Employee'});
+    else{
+        res.redirect('/users/login');
+    }
 });
 router.get('/searchE',function(req,res,next){
     console.log(req.query.search);
