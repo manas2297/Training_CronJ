@@ -151,4 +151,16 @@ router.post('/update/:id',function(req,res){
         }
     })
 });
+router.get('/delete/:id',function(req,res){
+    let query = {_id:req.params.id};
+    Employee.deleteOne(query,function(err){
+        if(err){
+            console.log(err);
+        }else{
+            console.log('Deleted');
+            res.redirect('/users/display');
+            
+        }
+    });
+})
 module.exports = router;
